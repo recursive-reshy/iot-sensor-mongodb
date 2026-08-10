@@ -1,11 +1,14 @@
 import { Aedes } from 'aedes'
 import { createServer } from 'net'
 
-export function startBroker( port: number ): Aedes {
-  const aedes = new Aedes()
+export async function startBroker( port: number ): Promise< Aedes > {
+  const aedes = await Aedes.createBroker()
   const server = createServer( aedes.handle )
 
-  server.listen( port, () => { console.log( `MQTT broker started and listening on port ${port}` ) } )
-
-  return aedes
+  return new Promise( ( resolve, reject ) => {
+    server.listen( port, () => { 
+      console.log( `MQTT broker started and listening on port ${port}` )
+      resolve( aedes )
+    } )
+  } )
 }

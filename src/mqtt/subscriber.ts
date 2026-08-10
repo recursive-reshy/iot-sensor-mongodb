@@ -2,11 +2,27 @@ import mqtt from 'mqtt'
 import { getReadingsCollection, SensorReading } from '../db/collections.js'
 
 export function startSubscriber( brokenUrl: string ): void {
+  console.log( `Starting MQTT subscriber to broker at ${ brokenUrl }` )
   const client = mqtt.connect( brokenUrl )
 
   client.on( 'connect', () => {
-    console.log( `Subscriber connected to broker at ${brokenUrl}` )
-    client.subscribe( 'iothings/sensors/+', ( error ) => console.error( `Error subscribing to topic: ${ error }` ) )
+    console.log( `Subscriber connected to broker at ${ brokenUrl }` )
+    client.subscribe( 'iothings/sensors/+', ( error, granted ) => {
+      if( error ) console.error( `Error subscribing to topic: ${ error }` )
+      else console.log( `Subscribed ${ JSON.stringify( granted ) }` )
+    } )
+  } )
+
+  client.on( 'error', ( error ) => {
+    console.error( `MQTT client error: ${ error }` )
+  } )
+
+  client.on( 'reconnect', () => {
+    console.log( 'MQTT client attempting to reconnect...' )
+  } )
+
+  client.on( 'close', () => {
+    console.log( 'MQTT client connection closed' )
   } )
 
   client.on( 'message', async ( topic, payload ) => {

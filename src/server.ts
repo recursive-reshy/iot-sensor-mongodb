@@ -18,7 +18,7 @@ app.listen( port, async () => {
     const db = await connectToDatabase()
     await ensureIndexes( db )
 
-    startBroker( Number( process.env.MQTT_PORT ) || 1883 )
+    await startBroker( Number( process.env.MQTT_PORT ) || 1883 )
     startSubscriber( `mqtt://localhost:${ process.env.MQTT_PORT || 1883 }` )
     console.log( `Server is running on port ${ port }` )
   } catch (error) {
