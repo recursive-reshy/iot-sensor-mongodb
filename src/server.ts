@@ -2,6 +2,9 @@
 import express, { Express } from 'express'
 // DB
 import { connectToDatabase, ensureIndexes } from './db/client.js'
+// MQTT
+import { startBroker } from './mqtt/broker.js'
+import { startSubscriber } from './mqtt/subscriber.js'
 
 // App
 const app: Express = express()
@@ -14,6 +17,9 @@ app.listen( port, async () => {
   try {
     const db = await connectToDatabase()
     await ensureIndexes( db )
+
+    await startBroker( Number( process.env.MQTT_PORT ) || 1883 )
+    startSubscriber( `mqtt://localhost:${ process.env.MQTT_PORT || 1883 }` )
     console.log( `Server is running on port ${ port }` )
   } catch (error) {
     console.error( 'Error starting server:', error )

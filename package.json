@@ -14,8 +14,10 @@
   "license": "ISC",
   "packageManager": "pnpm@10.33.0",
   "dependencies": {
+    "aedes": "^1.1.1",
     "express": "^5.2.1",
-    "mongodb": "^7.5.0"
+    "mongodb": "^7.5.0",
+    "mqtt": "^5.15.2"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
