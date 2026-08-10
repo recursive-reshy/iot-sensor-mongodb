@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "node --env-file=.env dist/src/server.js",
-    "dev": "node --watch --env-file=.env dist/src/server.js",
+    "dev": "tsc && node --watch --env-file=.env dist/src/server.js",
     "build": "tsc --build tsconfig.build.json"
   },
   "keywords": [],
@@ -14,7 +14,8 @@
   "license": "ISC",
   "packageManager": "pnpm@10.33.0",
   "dependencies": {
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "mongodb": "^7.5.0"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
