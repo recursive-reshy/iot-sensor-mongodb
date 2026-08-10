@@ -33,8 +33,10 @@ export function startSubscriber( brokenUrl: string ): void {
 
       const readingsCollection = await getReadingsCollection()
       await readingsCollection.insertOne( reading )
+
+      console.log( `Inserted reading from ${ topic }:`, reading )
     } catch ( error ) {
-      console.error(  `Error processing message from topic ${topic}: ${error}` )
+      console.error(  `Error processing message from topic ${ topic }: ${ error }` )
     }
   } )
 }
