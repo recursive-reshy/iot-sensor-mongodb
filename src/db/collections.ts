@@ -14,6 +14,6 @@ export interface SensorReading {
   activityLabel?: string // optional, sparse — CASAS activity annotation
 }
 
-export function getReadingsCollection(): Collection< SensorReading > {
+export async function getReadingsCollection(): Promise< Collection< SensorReading > > {
   return getDatabase().collection< SensorReading >( 'readings' )
 }
