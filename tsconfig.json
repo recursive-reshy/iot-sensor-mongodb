@@ -23,6 +23,6 @@
     "noFallthroughCasesInSwitch": false,
     "types": [ "node" ]
   },
-  "include": [ "src/**/*", "test/**/*" ],
+  "include": [ "src/**/*", "simulator/**/*", "test/**/*" ],
   "exclude": [ "node_modules", "dist" ]
 }

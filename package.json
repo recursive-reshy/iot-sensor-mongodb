@@ -7,7 +7,8 @@
   "scripts": {
     "start": "node --env-file=.env dist/src/server.js",
     "dev": "tsc && node --watch --env-file=.env dist/src/server.js",
-    "build": "tsc --build tsconfig.build.json"
+    "build": "tsc --build tsconfig.build.json",
+    "pipeline": "tsc && node --env-file=.env dist/simulator/pipeline.js"
   },
   "keywords": [],
   "author": "",
