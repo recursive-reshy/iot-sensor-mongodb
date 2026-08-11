@@ -5,6 +5,8 @@ import { connectToDatabase, ensureIndexes } from './db/client.js'
 // MQTT
 import { startBroker } from './mqtt/broker.js'
 import { startSubscriber } from './mqtt/subscriber.js'
+// APIs
+import { apiRouter } from './api/index.js'
 
 // App
 const app: Express = express()
@@ -12,6 +14,15 @@ const port = process.env.PORT || 3000
 
 // Middleware
 app.use( express.json() )
+app.use( express.urlencoded( { extended: true } ) )
+app.use( '/api', apiRouter )
+
+app.get( '/health', ( _, res ) => {
+  res.status( 200 ).json( {
+    status: 'ok',
+    timestamp: new Date().toISOString(),
+  } )
+} )
 
 app.listen( port, async () => {
   try {
